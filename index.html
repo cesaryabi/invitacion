@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una cena para el amor de mi vida</title>
+    <style>
+        :root {
+            --vino: #641f2d;
+            --rojo: #8f3043;
+            --dorado: #d6ad61;
+            --crema: #fff8ef;
+            --texto: #3b2528;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--texto);
+            background:
+                radial-gradient(circle at top, rgba(255, 255, 255, .95), rgba(255, 248, 239, .82) 45%, rgba(100, 31, 45, .14)),
+                #f6eadb;
+            display: flex;
+            justify-content: center;
+            padding: 28px 16px;
+        }
+
+        .card {
+            width: min(960px, 100%);
+            background: rgba(255, 250, 244, .97);
+            border: 1px solid rgba(214, 173, 97, .7);
+            box-shadow: 0 22px 60px rgba(57, 26, 30, .22);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .top {
+            padding: 34px 28px 22px;
+            text-align: center;
+            background: linear-gradient(135deg, #5a1725, #8f3043 55%, #641f2d);
+            color: white;
+            position: relative;
+        }
+
+        .top::after {
+            content: "♥";
+            position: absolute;
+            right: 24px;
+            top: 15px;
+            font-size: 34px;
+            color: rgba(255, 255, 255, .25);
+        }
+
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: .25em;
+            font-size: 12px;
+            color: #f2d59a;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(32px, 6vw, 58px);
+            font-weight: normal;
+            line-height: 1.05;
+        }
+
+        .subtitle {
+            margin: 12px auto 0;
+            max-width: 680px;
+            font-size: 17px;
+            line-height: 1.6;
+            color: #fff4e8;
+        }
+
+        .photo {
+            width: 100%;
+            height: 330px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 5px solid var(--dorado);
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: #d9c49e;
+            border-bottom: 1px solid #d9c49e;
+        }
+
+        .detail {
+            background: #fffaf3;
+            text-align: center;
+            padding: 22px 12px;
+        }
+
+        .detail .icon {
+            font-size: 26px;
+            color: var(--vino);
+            margin-bottom: 6px;
+        }
+
+        .detail strong {
+            display: block;
+            color: var(--vino);
+            font-size: 18px;
+        }
+
+        .detail span {
+            display: block;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .letter {
+            padding: 38px clamp(24px, 7vw, 72px) 28px;
+            text-align: left;
+        }
+
+        .letter h2 {
+            text-align: center;
+            color: var(--vino);
+            font-size: 29px;
+            font-weight: normal;
+            margin: 0 0 25px;
+        }
+
+        .letter p {
+            font-size: 18px;
+            line-height: 1.85;
+            margin: 0 0 16px;
+        }
+
+        .highlight {
+            margin: 25px 0;
+            padding: 20px 24px;
+            border-left: 4px solid var(--dorado);
+            background: #fbf0df;
+            font-style: italic;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .closing {
+            text-align: center;
+            padding: 8px 20px 32px;
+        }
+
+        .closing .heart {
+            color: var(--rojo);
+            font-size: 32px;
+            letter-spacing: 8px;
+        }
+
+        .closing strong {
+            display: block;
+            color: var(--vino);
+            font-size: 23px;
+            font-weight: normal;
+            margin-top: 10px;
+        }
+
+        button {
+            border: 0;
+            cursor: pointer;
+            background: linear-gradient(135deg, #7c2538, #a33d50);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 999px;
+            font-family: inherit;
+            font-size: 17px;
+            box-shadow: 0 10px 24px rgba(100, 31, 45, .28);
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(100, 31, 45, .35);
+        }
+
+        #confirmation {
+            display: none;
+            margin: 18px auto 0;
+            max-width: 540px;
+            padding: 16px 20px;
+            background: #edf7ed;
+            color: #315a38;
+            border: 1px solid #b9d7bd;
+            border-radius: 10px;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 16px;
+            background: #3e1822;
+            color: #f6dfb0;
+            font-size: 13px;
+            letter-spacing: .08em;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 0;
+            }
+
+            .card {
+                border: 0;
+            }
+
+            .photo {
+                height: 230px;
+            }
+
+            .details {
+                grid-template-columns: 1fr;
+            }
+
+            .detail {
+                padding: 15px;
+            }
+
+            .letter p,
+            .highlight {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="card">
+        <header class="top">
+            <div class="eyebrow">Una invitación muy especial</div>
+            <h1>Para el amor de mi vida</h1>
+            <div class="subtitle">Una noche para nosotros, para celebrar nuestro amor y todo lo que construimos juntos.
+            </div>
+        </header>
+
+        <img class="photo" src="/imagen.jpg" alt="Lugar preparado para una cena especial">
+        <section class="details" aria-label="Detalles de la cena">
+            <div class="detail">
+                <div class="icon">♥</div>
+                <strong>3 de octubre</strong>
+                <span>Una fecha para nosotros</span>
+            </div>
+            <div class="detail">
+                <div class="icon">✦</div>
+                <strong>20:00 hs</strong>
+                <span>La cena comienza a las 20 hs</span>
+            </div>
+            <div class="detail">
+                <div class="icon">⌖</div>
+                <strong>Patio Portugal</strong>
+                <span>Corrientes 450</span>
+            </div>
+            <div class="detail">
+                <div class="icon">⌖</div>
+                <strong>Patio Portugal</strong>
+                <span>Corrientes 450</span>
+            </div>
+        </section>
+
+        <section class="letter">
+            <div style="text-align:center; margin-bottom:24px; color:#641f2d; font-size:16px;">
+                <strong>La cita es en Patio Portugal · Corrientes 450</strong>
+            </div>
+            <h2>Amor, quiero decirte algo...</h2>
+
+            <p>
+                Amor, yo te amo. Sos la esposa perfecta y la mujer más hermosa del mundo entero.
+                Te miro y siento que el mundo se me da vuelta. Cada día te amo un poco más.
+            </p>
+
+            <p>
+                Quiero que seas la madre de mis hijos y seguir compartiendo con vos cada etapa de
+                nuestra vida. Me hace muy feliz saber que tenemos un amor tan grande, y que podemos
+                seguir construyendo nuestro futuro juntos.
+            </p>
+
+            <div class="highlight">
+                Este año fue difícil, pero lo terminamos en victoria. Cumplimos varios de nuestros
+                objetivos y dejamos algunos para el año que viene. Y está bien: tenemos toda una vida
+                para seguir avanzando, soñando y alcanzando cosas juntos.
+            </div>
+
+            <p>
+                Nuestro amor es eterno. Dios está en el asunto de todas las cosas, y confío en que
+                Él va a hacer posible todo aquello que todavía nos queda por vivir y construir.
+            </p>
+
+            <p>
+                Y hay algo que quiero que quede muy claro: <strong>esta invitación no se cancela por nada.</strong>
+                Eloy se va a quedar con Ceci, así que esa noche es para nosotros.
+            </p>
+
+            <p style="text-align:center; color:#641f2d; font-size:20px;">
+                Te amo con todo mi corazón.
+            </p>
+        </section>
+
+        <section class="closing">
+            <div class="heart">♥ ♥ ♥</div>
+            <strong>¿Aceptás esta cita con tu esposo?</strong>
+            <br><br>
+            <button type="button" onclick="confirmar()">Confirmar asistencia</button>
+            <div id="confirmation">
+                Confirmado. El 3 de octubre a las 20 hs tenemos una cita.
+                Te amo. ♥
+            </div>
+        </section>
+
+        <footer>
+            Una noche para recordar que nuestro amor sigue creciendo.
+        </footer>
+    </main>
+
+    <script>
+        function confirmar() {
+            const box = document.getElementById("confirmation");
+            box.style.display = "block";
+            box.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+    </script>
+</body>
+
+</html>
